@@ -7,11 +7,25 @@ using Xamarin.Forms;
 
 namespace TouchIDKeychain
 {
-	public partial class MainPage : ContentPage
-	{
-		public MainPage()
-		{
-			InitializeComponent();
-		}
-	}
+    public partial class MainPage : ContentPage
+    {
+        LoginPage myLoginPage;
+
+        public MainPage()
+        {
+            InitializeComponent();
+            myLoginPage = new LoginPage();
+            myLoginPage.LoginSucceeded += HandleLoginSucceeded;
+            GlobalObject.curMainPage = this;
+            Navigation.PushModalAsync(myLoginPage);
+
+        }
+        private void HandleLoginSucceeded(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Navigation.PopModalAsync();
+            });
+        }
+    }
 }

@@ -9,9 +9,13 @@ namespace TouchIDKeychain
 {
 	public partial class App : Application
 	{
-		public App ()
+        public static CredentialsService Credentials { get; private set; }
+        public static string AppName { get { return "TouchIDKeychainApp"; } }
+        public App ()
 		{
 			InitializeComponent();
+
+            Credentials = new CredentialsService();
 
 			MainPage = new TouchIDKeychain.MainPage();
 		}
